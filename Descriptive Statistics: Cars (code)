@@ -1,0 +1,73 @@
+cars=read.csv("Cars.csv", header = TRUE)
+
+MPG_Combo <- 0.55*cars$MPG_City+0.45*cars$MPG_Highway
+cars=data.frame(cars, MPG_Combo)  
+
+boxplot(MPG_Combo, main = "Fuel Efficiencies")  
+
+points(mean(cars$MPG_Combo, na.rom = TRUE, col=4))
+
+summary(cars)
+
+summary(cars$MPG_Combo, na.rm=TRUE)
+
+mean(cars$MPG_Combo, na.rm= TRUE)
+
+boxplot(MPG_Combo ~ Type, data=cars)
+
+summary(cars$Invoice)
+
+mean(cars$Invoice)
+var(cars$Invoice)
+
+library(e1071)
+skewness(cars$Invoice)
+
+range(cars$Invoice)
+
+quantile(cars$Invoice)
+
+qqnorm(cars$Invoice) ; qqline(cars$Invoice, col=4)
+
+shapiro.test(cars$Invoice)
+
+boxplot(cars$Invoice)
+
+points(mean(cars$Invoice, na.rom = TRUE, col=4))
+
+boxplot(Invoice ~ Origin, data=cars)
+
+qqnorm(cars$Invoice); qqline(cars$Invoice, col=4)
+
+shapiro.test(cars[cars$Origin == 'Asia', "Invoice"])
+shapiro.test(cars[cars$Origin == 'USA', "Invoice"])
+shapiro.test(cars[cars$Origin == 'Europe', "Invoice"])
+
+or_inv=cars[ ,c("Invoice","Origin")]
+View(or_inv)
+cars=data.frame(cars,or_inv)
+wilcox.test(cars$Invoice[cars$Origin != "USA"]) 
+
+summary(airquality)
+View(airquality)
+qqnorm(airquality$Wind)
+qqline(airquality$Wind, col=4)
+
+airja<- data.frame(subset(airquality, subset = Month >=7 & Month <=8))
+
+qqnorm(airja$Wind[airja$Month==7])
+qqline(airja$Wind[airja$Month==7], col=4)
+
+shapiro.test(airja$Wind[airja$Month==8])
+
+shapiro.test(airja$Wind[airja$Month==7])
+
+qqnorm(airja$Wind[airja$Month==8])
+qqline(airja$Wind[airja$Month==8], col=4)
+
+var.test(Wind ~ Month, airja,
+         alternative = "two.sided")
+         
+t.test(Wind~Month, airja,
+       alternative="two.sided",
+       var.equal=TRUE)
